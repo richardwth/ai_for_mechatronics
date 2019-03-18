@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50f21b01-c4f1-4241-a0e6-17de2a386f67" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/learn-python3" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="4" />
+              <selected id="0" />
             </state>
           </provider>
         </entry>
@@ -28,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="7" />
+              <selected id="9" />
             </state>
           </provider>
         </entry>
@@ -54,7 +57,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="302" />
     <option name="y" value="8" />
     <option name="width" value="2276" />
@@ -149,10 +152,9 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="151" y="4" width="1138" height="859" extended-state="0" />
-    <editor active="true" />
+    <frame x="-6" y="-6" width="1513" height="973" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19419238" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14488828" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -203,13 +205,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -217,10 +212,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="3" />
+          <selected id="9" />
         </state>
       </provider>
     </entry>
