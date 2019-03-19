@@ -3,11 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="50f21b01-c4f1-4241-a0e6-17de2a386f67" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_basics_01_control_flow.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python_basics_01_control_flow.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="0" />
+              <selected id="7" />
             </state>
           </provider>
         </entry>
@@ -31,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="9" />
+              <selected id="3" />
             </state>
           </provider>
         </entry>
@@ -57,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="302" />
     <option name="y" value="8" />
     <option name="width" value="2276" />
@@ -80,27 +82,6 @@
               <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
               <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
               <item name="learn-python3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
-              <item name="learn-python3" type="462c0819:PsiDirectoryNode" />
-              <item name="notebooks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
-              <item name="learn-python3" type="462c0819:PsiDirectoryNode" />
-              <item name="notebooks" type="462c0819:PsiDirectoryNode" />
-              <item name="beginner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
-              <item name="learn-python3" type="462c0819:PsiDirectoryNode" />
-              <item name="notebooks" type="462c0819:PsiDirectoryNode" />
-              <item name="beginner" type="462c0819:PsiDirectoryNode" />
-              <item name="notebooks" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
@@ -152,21 +133,21 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="973" extended-state="7" />
+    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14488828" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14488828" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32760897" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3272101" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3295063" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32885087" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3295063" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3283582" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -208,21 +189,21 @@
     <entry file="file://$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="20" />
+          <selected id="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="4" />
+          <selected id="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="9" />
+          <selected id="6" />
         </state>
       </provider>
     </entry>
