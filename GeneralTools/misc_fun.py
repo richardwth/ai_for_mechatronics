@@ -5,7 +5,7 @@ import tensorflow as tf
 flags = tf.flags
 FLAGS = tf.flags.FLAGS
 
-# This is a bug of jupyter notebook
+# This is a bug of Jupyter notebook
 flags.DEFINE_string('f', '', "Empty flag to suppress UnrecognizedFlagError: Unknown command line flag 'f'.")
 
 # local machine configuration
@@ -31,3 +31,5 @@ flags.DEFINE_string('IMAGE_FORMAT_ALIAS', 'NCHW', 'The format of images by defau
 
 # model hyper-parameters
 # flags.DEFINE_string('OPTIMIZER', 'adam', 'The default gradient descent optimizer.')
+flags.DEFINE_string('WEIGHT_INITIALIZER', 'default', 'The default weight initialization scheme.')
+flags.DEFINE_bool('VERBOSE', True, 'Define whether to print more info during training and test.')
