@@ -405,15 +405,17 @@ class Layer(object):
 
     def _apply_input_reshape_(self):
         if self.design['in_reshape'] is not None:
-            batch_size = self._layer_output_.get_shape().as_list()[0]
+            # batch_size = self._layer_output_.get_shape().as_list()[0]
+            # print(self._layer_output_)
+            # print([batch_size] + self.design['in_reshape'])
             self._layer_output_ = tf.reshape(
-                self._layer_output_, shape=[batch_size] + self.design['in_reshape'])
+                self._layer_output_, shape=[-1] + self.design['in_reshape'])
 
     def _apply_output_reshape_(self):
         if self.design['out_reshape'] is not None:
-            batch_size = self._layer_output_.get_shape().as_list()[0]
+            # batch_size = self._layer_output_.get_shape().as_list()[0]
             self._layer_output_ = tf.reshape(
-                self._layer_output_, shape=[batch_size] + self.design['out_reshape'])
+                self._layer_output_, shape=[-1] + self.design['out_reshape'])
 
     def build_layer(self):
         """ This function builds the layer
@@ -557,12 +559,29 @@ class SequentialNet(object):
             assert self.layers[i].output_shape is not None
         # self.layer_names = [layer.layer_scope for layer in self.layers]
 
-    def __call__(self, net_input, training=True):
+    def __call__(self, net_input, training=True, layer_index=-1):
+        """ This function applies the network to give predictions.
+
+        :param net_input:
+        :param training:
+        :param layer_index: if layer_index is given, only calculate to such layer
+        :return:
+        """
         net_output = net_input
-        for layer in self.layers:
+        for index, layer in enumerate(self.layers):
             net_output = layer.apply(net_output, training=training)
+            if index == layer_index:
+                break
 
         return net_output
 
-    def apply(self, net_input, training=True):
-        return self.__call__(net_input, training)
+    def apply(self, net_input, training=True, layer_index=-1):
+        """ This function applies the network to give predictions.
+
+        :param net_input:
+        :param training:
+        :param layer_index: if layer_index is given, only calculate to such layer
+        :return:
+        """
+
+        return self.__call__(net_input, training, layer_index)

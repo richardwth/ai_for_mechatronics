@@ -58,12 +58,12 @@ class DatasetFromTensor(object):
         :param map_func: common map_func includes scale and reshape
         :param name:
         """
-        self.name_scope = name
+        self.name = name
         # check input types
         assert isinstance(data, (np.ndarray, tf.Tensor, tuple, list)), \
-            '{}: Data must be from the following types: numpy array, tuple and list.'.format(self.name_scope)
+            '{}: Data must be from the following types: numpy array, tuple and list.'.format(self.name)
 
-        with tf.name_scope(name=name):
+        with tf.name_scope(name=self.name) as self.scope:
             # create placeholder and initialize the dataset
             self.placeholder = create_placeholder(data, dtype)
             self.feed_dict = {}
@@ -78,19 +78,19 @@ class DatasetFromTensor(object):
 
         if FLAGS.VERBOSE:
             print('{} dataset output type is {}'.format(
-                self.name_scope, self.dataset.output_types))
+                self.name, self.dataset.output_types))
             print('{} dataset output shape is {}'.format(
-                self.name_scope, self.dataset.output_shapes))
+                self.name, self.dataset.output_shapes))
 
     def schedule(self, batch_size, num_epoch=-1, skip_count=None, shuffle=True, buffer_size=10000):
-        with tf.name_scope(self.name_scope):
+        with tf.name_scope(self.scope):
             if skip_count is None:
                 skip_count = self.num_samples % batch_size
             if skip_count > 0:
                 self.dataset = self.dataset.skip(skip_count)
                 if FLAGS.VERBOSE:
                     print('{}: Number of {} instances skipped.'.format(
-                        self.name_scope, skip_count))
+                        self.name, skip_count))
             # shuffle
             if shuffle:
                 self.dataset = self.dataset.shuffle(buffer_size)
@@ -106,11 +106,19 @@ class DatasetFromTensor(object):
     def next(self, batch_size=None):
         if self.iterator is None:
             assert batch_size is not None, \
-                '{}: Batch size must be provided.'.format(self.name_scope)
+                '{}: Batch size must be provided.'.format(self.name)
             self.schedule(batch_size)
-        return self.iterator.get_next()
+        # somehow set_shape does not work as expected.
+        # data_batch = self.iterator.get_next()
+        # output_shapes = [[batch_size] + output_shape.as_list()[1:] for output_shape in self.dataset.output_shapes]
+        # for index, each_shape in enumerate(output_shapes):
+        #     data_batch[index].set_shape(each_shape)
+        # print(data_batch)
+        # return data_batch
+        with tf.name_scope(self.scope):
+            return self.iterator.get_next()
 
     def initializer(self):
         assert self.iterator is not None, \
-            '{}: Batch must be provided.'.format(self.name_scope)
+            '{}: Batch must be provided.'.format(self.name)
         return self.iterator.initializer, self.feed_dict

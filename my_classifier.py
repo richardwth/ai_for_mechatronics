@@ -5,7 +5,7 @@
 import numpy as np
 import tensorflow as tf
 
-from GeneralTools.my_graph import graph_configure, MySession, prepare_folder
+from GeneralTools.my_graph import graph_configure, MySession, prepare_folder, embedding_image_wrapper
 from GeneralTools.my_input import DatasetFromTensor
 from GeneralTools.my_layer import SequentialNet
 
@@ -36,16 +36,16 @@ class MyClassifier(object):
         self.num_class = num_class
         # if last layer uses nonlinear activation function, ignore it
         # this is because the cross entropy loss function requires logits
-        if architecture[-1].get('act', 'linear') is not 'linear':
-            self.last_layer_act = architecture[-1]['act']
-            architecture[-1]['act'] = 'linear'
+        if self.architecture[-1].get('act', 'linear') is not 'linear':
+            self.last_layer_act = self.architecture[-1]['act']
+            self.architecture[-1]['act'] = 'linear'
         else:
             self.last_layer_act = None
         if num_class == 2:
-            assert architecture[-1]['out'] == 1, \
+            assert self.architecture[-1]['out'] == 1, \
                 '{}: For two class problem, the last layer has one neuron.'.format(self.name)
         elif num_class > 2:
-            assert architecture[-1]['out'] == num_class, \
+            assert self.architecture[-1]['out'] == num_class, \
                 '{}: For {}-class problem, the last layer must have has {} neurons.'.format(
                     self.name, self.num_class, self.num_class)
         else:
@@ -125,7 +125,13 @@ class MyClassifier(object):
             raise AttributeError('{}: The prediction is not given.'.format(self.name))
 
         with tf.name_scope(name):
-            accuracy = tf.metrics.accuracy(target, tf.argmax(prediction, axis=1), name='acc')
+            # calculate accuracy
+            accuracy = tf.reduce_mean(
+                tf.cast(tf.equal(target, tf.argmax(prediction, axis=1, output_type=tf.int32)), tf.float32),
+                name='acc')
+            # accuracy = tf.metrics.accuracy(
+            #     target, tf.argmax(prediction, axis=1, output_type=tf.int32), name='acc')[0]
+            # calculate the loss
             if self.num_class == 2:
                 target_float = tf.cast(tf.expand_dims(target, axis=1), dtype=tf.float32)  # [N, 1]
                 if self.loss_type.lower() in {'cross-entropy', 'cross entropy'}:
@@ -176,6 +182,16 @@ class MyClassifier(object):
         :param do_trace:
         :return:
         """
+        """
+        Note the six-step workflow of data analysis:
+        1. prepare data
+        2. define the model
+        3. define the loss function
+        4. configure the optimizer
+        5. configure the summary
+        6. call a session
+        """
+
         # build training and validation datasets
         num_samples = x_train.shape[0]
         step_per_epoch = num_samples // batch_size
@@ -189,11 +205,11 @@ class MyClassifier(object):
         if xva is None:
             yva_prediction = None
         else:
-            yva_prediction = self.mdl(yva, training=False)
+            yva_prediction = self.mdl(xva, training=False)
 
         # calculate loss
-        loss_tr, acc_tr = self.cal_loss(ytr, ytr_prediction)
-        loss_va, acc_va = self.cal_loss(yva, yva_prediction)
+        loss_tr, acc_tr = self.cal_loss(ytr, ytr_prediction, name='TrainLoss')
+        loss_va, acc_va = self.cal_loss(yva, yva_prediction, name='ValidateLoss')
 
         # configure optimizer
         global_step, opt_op, _ = graph_configure(
@@ -231,6 +247,8 @@ class MyClassifier(object):
         if debug_mode:
             with MySession(do_save=do_save, do_trace=do_trace, load_ckpt=load_ckpt) as sess:
                 sess.run(train_init_bundle[0], feed_dict=train_init_bundle[1])
+                if validate_init_bundle is not None:
+                    sess.run(validate_init_bundle[0], feed_dict=validate_init_bundle[1])
                 sess.debug_mode(
                     train_op, [loss_tr, acc_tr], global_step,
                     summary_op, summary_folder=summary_folder, ckpt_folder=ckpt_folder, save_path=save_path,
@@ -238,6 +256,8 @@ class MyClassifier(object):
         else:
             with MySession(do_save=do_save, load_ckpt=load_ckpt) as sess:
                 sess.run(train_init_bundle[0], feed_dict=train_init_bundle[1])
+                if validate_init_bundle is not None:
+                    sess.run(validate_init_bundle[0], feed_dict=validate_init_bundle[1])
                 sess.full_run(
                     train_op, [loss_tr, acc_tr], max_step, step_per_epoch, global_step,
                     summary_op, summary_folder=summary_folder, ckpt_folder=ckpt_folder, save_path=save_path,
@@ -268,7 +288,7 @@ class MyClassifier(object):
         yte_prediction = self.mdl(xte, training=False)
 
         # calculate loss
-        loss_te, acc_te = self.cal_loss(yte, yte_prediction)
+        loss_te, acc_te = self.cal_loss(yte, yte_prediction, name='TestLoss')
 
         # call the session
         ckpt_folder, summary_folder, save_path = prepare_folder(model_folder)
@@ -284,3 +304,62 @@ class MyClassifier(object):
         acc = np.mean([values[2] for values in value_list])
 
         return predictions, loss, acc
+
+    def visualize_layer_output(
+            self, layer_name, x, y, batch_size=400, map_func=None, load_ckpt=True,
+            model_folder='', save_folder='visualise', mesh_num=None, invert_image=False,
+            image_format='channels_last'):
+        """ This function visualize the inputs or the layer output of previously saved model
+
+        :param layer_name: 'input' or any layer in
+        :param x: [N, D] numpy ndarray
+        :param y: [N, ] numpy array
+        :param batch_size:
+        :param map_func:
+        :param load_ckpt:
+        :param model_folder:
+        :param save_folder: folder to save the visualization results
+        :param mesh_num:
+        :param invert_image:
+        :param image_format: the format of the input images
+        :return:
+        """
+        self.check_inputs(x, y)
+        x_batch, y_batch, init_bundle = self.build_dataset(
+            x, y, 'batch', 400, map_func, name='VisualizeData')
+        if len(x.shape) > 2:
+            images = x_batch
+        else:
+            images = None
+
+        # get the tensor for visualization
+        if layer_name.lower() in {'input'}:
+            embedding_data = x_batch
+        else:
+            mdl_layer_names = [layer['name'] for layer in self.architecture]
+            try:
+                layer_index = mdl_layer_names.index(layer_name)
+            except ValueError:
+                raise ValueError('{}: The given layer_name {} is not in network'.format(self.name, layer_name))
+            # make predictions
+            embedding_data = self.mdl(x_batch, training=False, layer_index=layer_index)
+        # reshape embeding_data if it is not in matrix format
+        if len(embedding_data.get_shape().as_list()) > 2:
+            embedding_data = tf.reshape(embedding_data, shape=(batch_size, -1))
+
+        # calculate embedding_data, images and labels.
+        ckpt_folder, summary_folder, save_path = prepare_folder(model_folder)
+        with MySession(load_ckpt=load_ckpt) as sess:
+            sess.run(init_bundle[0], feed_dict=init_bundle[1])
+            if images is None:
+                embedding_data_value, labels = sess.run(
+                    [embedding_data, y_batch], ckpt_folder=ckpt_folder)
+                image_value = None
+            else:
+                embedding_data_value, labels, image_value = sess.run(
+                    [embedding_data, y_batch, images], ckpt_folder=ckpt_folder)
+        # do the embedding
+        embedding_image_wrapper(
+            embedding_data_value, save_folder, labels=labels,
+            images=image_value, mesh_num=mesh_num, invert_image=invert_image, image_format=image_format)
+

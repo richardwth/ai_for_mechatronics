@@ -29,7 +29,8 @@ def prepare_folder(filename, sub_folder='', set_folder=True):
     summary_folder = os.path.join(FLAGS.DEFAULT_OUT, filename + '_log', sub_folder)
     if not os.path.exists(summary_folder) and set_folder:
         os.makedirs(summary_folder)
-    save_path = os.path.join(ckpt_folder, filename + '.ckpt')
+    head, tail = os.path.split(filename)
+    save_path = os.path.join(ckpt_folder, tail + '.ckpt')
 
     return ckpt_folder, summary_folder, save_path
 
@@ -49,6 +50,10 @@ def prepare_embedding_folder(summary_folder, filename, file_index=''):
     embedding_path = os.path.join(summary_folder, filename + file_index + '_embedding.ckpt')
     label_path = os.path.join(summary_folder, filename + file_index + '_label.tsv')
     sprite_path = os.path.join(summary_folder, filename + file_index + '.png')
+
+    head, tail = os.path.split(embedding_path)
+    if not os.path.exists(head):
+        os.makedirs(head)
 
     return embedding_path, label_path, sprite_path
 
@@ -206,7 +211,7 @@ def embedding_latent_code(
 ########################################################################
 def embedding_image_wrapper(
         latent_code, filename, var_name='codes', file_folder=None, file_index='',
-        labels=None, images=None, mesh_num=None, if_invert=False, image_format='channels_last'):
+        labels=None, images=None, mesh_num=None, invert_image=False, image_format='channels_last'):
     """ This function is a wrapper function for embedding_image
 
     :param latent_code: the data to visualise
@@ -217,7 +222,7 @@ def embedding_image_wrapper(
     :param labels:
     :param images: ndarray, [batch_size, height, width(, channels)], values in range [0,1]
     :param mesh_num:
-    :param if_invert:
+    :param invert_image:
     :param image_format: the default is channels_last; if channels_first is provided, transpose will be done.
     :return:
     """
@@ -245,7 +250,7 @@ def embedding_image_wrapper(
         if os.path.isfile(sprite_path):
             warnings.warn('Sprite file {} already exist.'.format(sprite_path))
         else:
-            write_sprite(sprite_path, images, mesh_num=mesh_num, if_invert=if_invert)
+            write_sprite(sprite_path, images, mesh_num=mesh_num, if_invert=invert_image)
     else:
         image_size = None
         sprite_path = None
@@ -695,7 +700,9 @@ class MySession(object):
         if any(np.isnan(loss_value_list)):
             # save the model
             if self.saver is not None:
-                self.saver.save(self.sess, save_path=self.save_path, global_step=global_step_value)
+                self.saver.save(
+                    self.sess, save_path=self.save_path if save_path is None else save_path,
+                    global_step=global_step_value)
             warnings.warn('Training Stopped due to nan in loss: {}.'.format(loss_value_list))
             return True
         elif any(np.greater(loss_value_list, 30000)):
@@ -790,7 +797,9 @@ class MySession(object):
 
             # save the mdl if for loop completes normally
             if step == max_step - 1 and self.saver is not None:
-                self.saver.save(self.sess, save_path=self.save_path, global_step=global_step_value)
+                self.saver.save(
+                    self.sess, save_path=self.save_path if save_path is None else save_path,
+                    global_step=global_step_value)
 
         # calculate sess duration
         duration = time.time() - start_time
