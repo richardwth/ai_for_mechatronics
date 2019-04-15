@@ -233,6 +233,9 @@ def embedding_image_wrapper(
         file_folder = FLAGS.DEFAULT_OUT
     # prepare folder
     embedding_path, label_path, sprite_path = prepare_embedding_folder(file_folder, filename, file_index)
+    head, tail = os.path.split(embedding_path)
+    if head is not file_folder:
+        file_folder = head
     # write label to file if labels are given
     if labels is not None:
         if os.path.isfile(label_path):

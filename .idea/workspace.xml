@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50f21b01-c4f1-4241-a0e6-17de2a386f67" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeneralTools/my_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneralTools/my_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TensorFlow-Tutorials/01_Simple_Linear_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/TensorFlow-Tutorials/01_Simple_Linear_Model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TensorFlow_basics_03_Model_loss_and_summaries.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/TensorFlow_basics_03_Model_loss_and_summaries.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/classes.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/dictionaries.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/lists.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/learn-python3/notebooks/beginner/notebooks/numbers.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_basics_01_control_flow.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python_basics_01_control_flow.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/test.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,19 +24,64 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/python_basics_01_control_flow.ipynb">
+        <entry file="file://$PROJECT_DIR$/TensorFlow_basics_02_session_and_input.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="7" />
+              <selected id="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TensorFlow_basics_03_Model_loss_and_summaries.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/my_classifier.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="340" column="55" selection-start-line="340" selection-start-column="55" selection-end-line="340" selection-end-column="55" />
+              <folding>
+                <element signature="e#58#76#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="3" />
+        <entry file="file://$PROJECT_DIR$/GeneralTools/my_graph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="769" column="16" selection-start-line="769" selection-start-column="16" selection-end-line="771" selection-end-column="67" />
+              <folding>
+                <element signature="e#69#80#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GeneralTools/my_layer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11480">
+              <caret line="576" selection-start-line="576" selection-end-line="576" />
+              <folding>
+                <element signature="e#66#89#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GeneralTools/my_input.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2240">
+              <caret line="114" column="34" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -44,26 +92,63 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>pandas</find>
+      <find>write_sprite_wrapper</find>
+      <find>embedding_image_wrapper</find>
+      <find>trace</find>
+      <find>prepare_embedding_folder</find>
+      <find>os.path.exists</find>
+      <find>assert</find>
+      <find>'op'</find>
+      <find>spatial_shape_after_conv</find>
+      <find>batch</find>
+      <find>shape_af</find>
+      <find>batch_norm</find>
+      <find>print</find>
+      <find>global</find>
+      <find>FLAGS.print</find>
+      <find>ver</find>
+      <find>in {</find>
+      <find>split</find>
+      <find>project</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/learn-python3" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test.ipynb" />
         <option value="$PROJECT_DIR$/python_basics_01_control_flow.ipynb" />
         <option value="$PROJECT_DIR$/python_basics_02_everything_class.ipynb" />
+        <option value="$PROJECT_DIR$/TensorFlow_basics_01_linea_models.ipynb" />
+        <option value="$PROJECT_DIR$/02042019_TUTORIAL.ipynb" />
+        <option value="$PROJECT_DIR$/TensorFlow_basics_02_session_and_input.ipynb" />
+        <option value="$PROJECT_DIR$/my_input.py" />
+        <option value="$PROJECT_DIR$/my_model.py" />
+        <option value="$PROJECT_DIR$/../MMD-GAN/GeneralTools/layer_func.py" />
+        <option value="$PROJECT_DIR$/GeneralTools/misc_fun.py" />
+        <option value="$PROJECT_DIR$/../MMD-GAN/GeneralTools/graph_func.py" />
+        <option value="$PROJECT_DIR$/GeneralTools/my_model.py" />
+        <option value="$PROJECT_DIR$/test.ipynb" />
+        <option value="$PROJECT_DIR$/GeneralTools/my_input.py" />
+        <option value="$PROJECT_DIR$/GeneralTools/my_layer.py" />
+        <option value="$PROJECT_DIR$/my_classifier.py" />
+        <option value="$PROJECT_DIR$/TensorFlow_basics_03_Model_loss_and_summaries.ipynb" />
+        <option value="$PROJECT_DIR$/GeneralTools/my_graph.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="302" />
-    <option name="y" value="8" />
-    <option name="width" value="2276" />
-    <option name="height" value="1718" />
+    <option name="x" value="-10" />
+    <option name="width" value="1522" />
+    <option name="height" value="1932" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -71,6 +156,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -81,7 +167,12 @@
             <path>
               <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
               <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
-              <item name="learn-python3" type="462c0819:PsiDirectoryNode" />
+              <item name="ext_code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ai_mechatronics" type="462c0819:PsiDirectoryNode" />
+              <item name="GeneralTools" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ai_mechatronics" type="b2602c69:ProjectViewProjectNode" />
@@ -91,12 +182,16 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Course" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/conda/conda/envs/py36/python.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/GeneralTools" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\richa\PycharmProjects\ai_mechatronics\GeneralTools" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -134,12 +229,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14488828" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20108327" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3272101" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3295063" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32628798" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -151,7 +247,13 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="656" height="773" id="Documentation" order="3" weight="0.23161513" />
     </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/MMD-GAN" />
+    </ignored-roots>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/learn-python3/README.md">
@@ -203,7 +305,162 @@
     <entry file="file://$PROJECT_DIR$/python_basics_02_everything_class.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="6" />
+          <selected id="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/NoteBooks/my_sessions.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TensorFlow-Tutorials/01_Simple_Linear_Model.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext_code/tbtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/Server_Spartan/celebA/rep/celebA_sngan_rep1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="45" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/02042019_TUTORIAL.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/GeneralTools/math_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="171" column="28" selection-start-line="171" selection-start-column="4" selection-end-line="171" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/GeneralTools/layer_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="2436" column="39" selection-start-line="2436" selection-start-column="39" selection-end-line="2436" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneralTools/misc_fun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/DeepLearning/my_sngan.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="451" column="35" selection-start-line="450" selection-start-column="20" selection-end-line="453" selection-end-column="59" />
+          <folding>
+            <element signature="e#181#199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/GeneralTools/graph_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="667" column="24" selection-start-line="667" selection-start-column="24" selection-end-line="667" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../MMD-GAN/GeneralTools/input_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-477">
+          <caret line="962" column="64" selection-start-line="962" selection-start-column="64" selection-end-line="962" selection-end-column="65" />
+          <folding>
+            <element signature="e#578#587#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TensorFlow_basics_01_linear_models.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/TensorFlow_basics_03_Model_loss_and_summaries.ipynb" />
+    <entry file="file://$PROJECT_DIR$/TensorFlow_basics_02_session_and_input.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneralTools/my_layer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11480">
+          <caret line="576" selection-start-line="576" selection-end-line="576" />
+          <folding>
+            <element signature="e#66#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneralTools/my_input.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2240">
+          <caret line="114" column="34" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TensorFlow_basics_03_Model_loss_and_summaries.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="340" column="55" selection-start-line="340" selection-start-column="55" selection-end-line="340" selection-end-column="55" />
+          <folding>
+            <element signature="e#58#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneralTools/my_graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="769" column="16" selection-start-line="769" selection-start-column="16" selection-end-line="771" selection-end-column="67" />
+          <folding>
+            <element signature="e#69#80#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
