@@ -7,21 +7,21 @@ FLAGS.DEFAULT_OUT = '/home/richard_wth/Results/'  # add folder to save the final
 # FLAGS.WEIGHT_INITIALIZER = 'sn_paper'
 
 # import packages
-import numpy as np
-from GeneralTools.layer_fun import .
+# import numpy as np
+# from GeneralTools.layer_fun import .
 
 # configurate the model hyper-parameters
-learning_rate = 1e-3
-architecture = {}
+# learning_rate = 1e-3
+# architecture = {}
 
 # instantiate a model 
-mdl = Classifier(architecture, learning_rate=learning_rate)
+# mdl = Classifier(architecture, learning_rate=learning_rate)
 
 # train the model
-mdl.training()
+# mdl.training()
 
 # evaluate the model and print the reults to file
-mdl.test()
+# mdl.test()
 
 # setup another set of hyper-parameters and re-run the model
 # ...

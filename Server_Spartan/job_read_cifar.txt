@@ -1,0 +1,2 @@
+x_batch shape (8, 32, 32, 3)
+Job finished successfully.
