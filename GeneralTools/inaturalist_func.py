@@ -2,7 +2,6 @@
 This file contains functions and classes for saving, reading and processing the iNaturalist 2019 dataset
 
 """
-from GeneralTools.my_input import _bytes_feature, _int64_feature
 from GeneralTools.misc_fun import FLAGS
 import sys
 import time
@@ -11,6 +10,29 @@ import tensorflow as tf
 import numpy as np
 
 
+########################################################################
+# define macro
+# FloatList, Int64List and BytesList are three base feature types
+def _float_feature(value):
+    return tf.train.Feature(
+        float_list=tf.train.FloatList(value=[value])
+        if isinstance(value, float) else tf.train.FloatList(value=value))
+
+
+def _int64_feature(value):  # numpy int is not int!
+    return tf.train.Feature(
+        int64_list=tf.train.Int64List(value=[value])
+        if isinstance(value, int) else tf.train.Int64List(value=value))
+
+
+def _bytes_feature(value):
+    return tf.train.Feature(
+        bytes_list=tf.train.BytesList(value=[value])
+        if isinstance(value, (str, bytes)) else tf.train.BytesList(value=value))
+    # return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+
+
+########################################################################
 def images_to_tfrecords(image_names, output_filename, num_images_per_tfrecord, image_class=None, target_size=299):
     """ This function converts images listed in the image_names to tfrecords files
 
@@ -96,12 +118,13 @@ class ReadTFRecords(object):
             self, filenames, num_features=None, num_labels=0, x_dtype=tf.string, y_dtype=tf.int64, batch_size=16,
             skip_count=0, file_repeat=1, num_epoch=None, file_folder=None,
             num_threads=8, buffer_size=2000, shuffle_file=False,
-            decode_jpeg=False):
+            decode_jpeg=False, use_one_hot_label=False, use_smooth_label=True, num_classes=1):
         """ This function creates a dataset object that reads data from files.
 
         :param filenames: string or list of strings, e.g., 'train_000', ['train_000', 'train_001', ...]
         :param num_features: e.g., 3*299*299
-        :param num_labels: 0 or positive integer
+        :param num_labels: 0 or positive integer, but the case for multiple labels is ambiguous if one_hot_label
+            is to be used. Thus, we do not do that here.
         :param x_dtype: default tf.string, the dtype of features stored in tfrecord file
         :param y_dtype: default tf.int64, the dtype of labels stored in tfrecord file
         :param num_epoch: integer or None
@@ -115,6 +138,9 @@ class ReadTFRecords(object):
         :param buffer_size:
         :param shuffle_file: bool, whether to shuffle the filename list
         :param decode_jpeg: if input is saved as JPEG string, set this to true
+        :param use_one_hot_label: whether to expand the label to one-hot vector
+        :param use_smooth_label: if uses smooth label instead of 0 and 1, to prevent overfitting
+        :param num_classes: if use_one_hot_label is true, the number of classes also needs to be provided.
 
         """
         if file_folder is None:
@@ -142,8 +168,12 @@ class ReadTFRecords(object):
         self.batch_shape = [self.batch_size, self.num_features]
         self.num_epoch = num_epoch
         self.skip_count = skip_count
-        self.decode_jpeg = decode_jpeg
+
         # read data,
+        self.decode_jpeg = decode_jpeg
+        self.use_one_hot_label = False if num_labels > 1 else use_one_hot_label
+        self.use_smooth_label = use_smooth_label
+        self.num_classes = num_classes
         dataset = tf.data.TFRecordDataset(filenames)  # setting num_parallel_reads=num_threads decreased the performance
         self.dataset = dataset.map(self.__parser__, num_parallel_calls=num_threads)
         self.iterator = None
@@ -198,14 +228,18 @@ class ReadTFRecords(object):
                 # avoid using string labels like 'cat', 'dog', use integers instead
                 datum['y'] = tf.decode_raw(datum['y'], tf.uint8)
                 datum['y'] = tf.cast(datum['y'], tf.int32)
-            if self.y_dtype == tf.int64:
-                datum['y'] = tf.cast(datum['y'], tf.int32)
+            else:
+                datum['y'] = tf.cast(datum['y'], self.y_dtype)
+            if self.use_one_hot_label:
+                datum['y'] = tf.reshape(tf.one_hot(datum['y'], self.num_classes), (-1, ))
+                if self.use_smooth_label:  # label smoothing
+                    datum['y'] = 0.9 * datum['y'] + 0.1 / self.num_classes
             return datum['x'], datum['y']
         else:
             return datum['x']
 
     ###################################################################
-    def shape2image(self, channels, height, width, resize=None):
+    def image_preprocessor(self, channels, height, width, resize=None, image_augment_fun=None):
         """ This function shapes the input instance to image tensor.
 
         :param channels:
@@ -213,13 +247,14 @@ class ReadTFRecords(object):
         :param width:
         :param resize: list of tuple
         :type resize: list, tuple
+        :param image_augment_fun: the function applied to augment a single image
         :return:
         """
 
-        def image_preprocessor(image):
+        def __preprocessor__(image):
             # scale image to [0, 1] or [-1,1]
-            image = tf.divide(image, 255.5, name='scale_range')
-            # image = tf.subtract(tf.divide(image, 127.5), 1)
+            image = tf.divide(image, 255.0, name='scale_range')
+            # image = tf.subtract(tf.divide(image, 127.5), 1, name='scale_range')
 
             # reshape - note this is determined by how the data is stored in tfrecords, modify with caution
             if self.decode_jpeg:
@@ -242,16 +277,20 @@ class ReadTFRecords(object):
                 else:
                     image = tf.image.resize_images(image, resize, align_corners=True)
 
+            # apply augmentation method if provided
+            if image_augment_fun is not None:
+                image = image_augment_fun(image)
+
             return image
 
         # do image pre-processing
         if self.num_labels == 0:
             self.dataset = self.dataset.map(
-                lambda image_data: image_preprocessor(image_data),
+                lambda image_data: __preprocessor__(image_data),
                 num_parallel_calls=self.num_threads)
         else:
             self.dataset = self.dataset.map(
-                lambda image_data, label: (image_preprocessor(image_data), label),
+                lambda image_data, label: (__preprocessor__(image_data), label),
                 num_parallel_calls=self.num_threads)
 
         # write batch shape
@@ -291,9 +330,17 @@ class ReadTFRecords(object):
             if self.skip_count > 0:
                 print('Number of {} instances skipped.'.format(self.skip_count))
                 self.dataset = self.dataset.skip(self.skip_count)
-            # shuffle
+            # shuffle and repeat
+            print(
+                'The dataset repeats for infinite number of epochs' if self.num_epoch in {-1, None}
+                else 'The dataset repeat {} epochs'.format(self.num_epoch))
             if shuffle_data:
                 self.dataset = self.dataset.shuffle(self.buffer_size)
+            #     self.dataset = self.dataset.apply(
+            #         tf.data.experimental.shuffle_and_repeat(self.buffer_size, self.num_epoch))
+            # else:
+            #     self.dataset = self.dataset.repeat(self.num_epoch)
+            self.dataset = self.dataset.repeat(self.num_epoch)
             # set batching process
             if sample_same_class:
                 if sample_class is None:
@@ -304,19 +351,16 @@ class ReadTFRecords(object):
                         window_size=self.batch_size)
                     self.dataset = self.dataset.apply(group_fun)
                 else:
-                    print('Caution: samples from class {}. This should not be used in training'.format(sample_class))
+                    print(
+                        'Caution: samples from class {}. This should not be used in training'.format(sample_class))
                     self.dataset = self.dataset.filter(lambda x, y: tf.equal(y[0], sample_class))
                     self.dataset = self.dataset.batch(self.batch_size)
             else:
                 self.dataset = self.dataset.batch(self.batch_size)
             # self.dataset = self.dataset.padded_batch(batch_size)
-            if self.num_epoch is None:
-                self.dataset = self.dataset.repeat()
-            else:
-                print('Num_epoch set: {} epochs.'.format(num_epoch))
-                self.dataset = self.dataset.repeat(self.num_epoch)
+            # prefetch to speed up input pipeline. After batch method, buffer_size in prefetch means one batch
+            self.dataset = self.dataset.prefetch(buffer_size=1)
 
-            self.iterator = self.dataset.make_one_shot_iterator()
             self.scheduled = True
 
     ###################################################################
@@ -335,8 +379,10 @@ class ReadTFRecords(object):
         if self.num_labels == 0:
             if not self.scheduled:
                 self.scheduler(shuffle_data=shuffle_data)
-            x_batch = self.iterator.get_next()
+            if self.iterator is None:
+                self.iterator = self.dataset.make_one_shot_iterator()
 
+            x_batch = self.iterator.get_next()
             x_batch.set_shape(self.batch_shape)
 
             return {'x': x_batch}
@@ -349,9 +395,57 @@ class ReadTFRecords(object):
                 self.scheduler(
                     shuffle_data=shuffle_data, sample_same_class=sample_same_class,
                     sample_class=sample_class)
-            x_batch, y_batch = self.iterator.get_next()
+            if self.iterator is None:
+                self.iterator = self.dataset.make_one_shot_iterator()
 
+            x_batch, y_batch = self.iterator.get_next()
             x_batch.set_shape(self.batch_shape)
-            y_batch.set_shape([self.batch_size, self.num_labels])
+            if self.use_one_hot_label:
+                y_batch.set_shape([self.batch_size, self.num_classes])
+            else:
+                y_batch.set_shape([self.batch_size, self.num_labels])
 
             return {'x': x_batch, 'y': y_batch}
+
+
+########################################################################
+def read_inaturalist(key='train', batch_size=64, target_size=299, do_augment=False, buffer_size=2000, fast_mode=False):
+    """ This function reads the iNaturalist 2019 dataset.
+
+    :param key: train, val or test
+    :param batch_size:
+    :param target_size: the image size
+    :param do_augment: True or false
+    :param buffer_size:
+    :return:
+    """
+
+    data_size = {'train': 265213, 'val': 3030, 'test': 35350}
+    data_label = {'train': 1, 'val': 1, 'test': 0}
+    num_images = data_size[key]
+    steps_per_epoch = num_images // batch_size
+    skip_count = num_images % batch_size
+    num_labels = data_label[key]
+    num_classes = 1010
+
+    filenames = os.listdir(FLAGS.DEFAULT_IN)
+    filenames = [filename.replace('.tfrecords', '') for filename in filenames if key in filename]
+    print('The following tfrecords are read: {}'.format(filenames))
+
+    dataset = ReadTFRecords(
+        filenames, num_labels=num_labels, batch_size=batch_size, buffer_size=buffer_size,
+        skip_count=skip_count, num_threads=8, decode_jpeg=True,
+        use_one_hot_label=True, use_smooth_label=True if key == 'train' else False, num_classes=num_classes)
+    if do_augment:
+        from GeneralTools.inception_preprocessing import preprocess_image
+        # apply basic data augmentation (random crops, random left-right flipping, color distortion)
+        dataset.image_preprocessor(
+            3, target_size, target_size,
+            lambda x: preprocess_image(
+                x, height=target_size, width=target_size,
+                is_training=True if key == 'train' else False, fast_mode=fast_mode))
+    else:
+        dataset.image_preprocessor(3, target_size, target_size)
+    dataset.scheduler(shuffle_data=False if key == 'test' else True)
+
+    return dataset, steps_per_epoch
